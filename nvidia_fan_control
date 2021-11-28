@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Run as root.
+
+setFanSpeed () {
+    echo "Fan speed being set to $1%."
+    DISPLAY=:0 XAUTHORITY=/run/user/122/gdm/Xauthority nvidia-settings -a [gpu:0]/GPUFanControlState=1
+    DISPLAY=:0 XAUTHORITY=/run/user/122/gdm/Xauthority nvidia-settings -a [fan:0]/GPUTargetFanSpeed=$1
+}
+
+while true; do
+    temp=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader)
+    echo "Reading tempature of $temp."
+    if [[ "$temp" -ge 78 ]]; then
+        setFanSpeed 100
+    elif [[ "$temp" -ge 75 ]]; then
+        setFanSpeed 80
+    elif [[ "$temp" -ge 70 ]]; then
+        setFanSpeed 75
+    elif [[ "$temp" -ge 65 ]]; then
+        setFanSpeed 70
+    elif [[ "$temp" -ge 60 ]]; then
+        setFanSpeed 60
+    elif [[ "$temp" -ge 50 ]]; then
+        setFanSpeed 50
+    else
+        setFanSpeed 35
+    fi
+
+    sleep 3
+done

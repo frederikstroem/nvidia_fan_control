@@ -1,0 +1,10 @@
+[Unit]
+Description=Control Nvidia graphics fan.
+
+[Service]
+ExecStartPre=/bin/sleep 20
+ExecStart=/usr/bin/nvidia_fan_control
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
