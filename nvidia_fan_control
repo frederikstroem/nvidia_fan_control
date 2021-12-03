@@ -11,21 +11,31 @@ setFanSpeed () {
 while true; do
     temp=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader)
     echo "Reading tempature of $temp."
-    if [[ "$temp" -ge 78 ]]; then
+    if [[ "$temp" -ge 75 ]]; then
         setFanSpeed 100
-    elif [[ "$temp" -ge 75 ]]; then
+    elif [[ "$temp" -ge 74 ]]; then
+        setFanSpeed 97
+    elif [[ "$temp" -ge 72 ]]; then
+        setFanSpeed 95
+    elif [[ "$temp" -ge 70 ]]; then
         setFanSpeed 90
+    elif [[ "$temp" -ge 69 ]]; then
+        setFanSpeed 87
+    elif [[ "$temp" -ge 67 ]]; then
+        setFanSpeed 85
     elif [[ "$temp" -ge 65 ]]; then
         setFanSpeed 80
+    elif [[ "$temp" -ge 64 ]]; then
+        setFanSpeed 76
+    elif [[ "$temp" -ge 62 ]]; then
+        setFanSpeed 74
     elif [[ "$temp" -ge 60 ]]; then
         setFanSpeed 70
-    elif [[ "$temp" -ge 55 ]]; then
-        setFanSpeed 60
     elif [[ "$temp" -ge 50 ]]; then
-        setFanSpeed 50
+        setFanSpeed 65
     else
-        setFanSpeed 35
+        setFanSpeed 60
     fi
 
-    sleep 3
+    sleep 5
 done
