@@ -33,8 +33,10 @@ while true; do
         setFanSpeed 70
     elif [[ "$temp" -ge 50 ]]; then
         setFanSpeed 65
+    elif [[ "$temp" -ge 44 ]]; then
+        setFanSpeed 40
     else
-        setFanSpeed 60
+        setFanSpeed 20
     fi
 
     sleep 5
